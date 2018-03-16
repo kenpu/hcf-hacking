@@ -1,6 +1,6 @@
 .PHONY: all run shell
 
-IMAGE = hcf/singleuse-notebook
+IMAGE = hcf/singleuser-notebook
 OPT = --rm -it -p 8888:8888
 
 all:
