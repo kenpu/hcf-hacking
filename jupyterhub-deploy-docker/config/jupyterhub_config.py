@@ -34,21 +34,39 @@ c.JupyterHub.hub_port = 8080
 # TLS config
 c.JupyterHub.port = 8000
 
-# Authenticate users with GitHub OAuth
-#c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
-#c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
+#
+# Authenticate users with Google
+#
+### c.GoogleOAuthenticator.oauth_callback_url = "http://db.science.uoit.ca:8000/hub/oauth_callback"
+### c.GoogleOAuthenticator.client_id = os.environ['GOOGLE_CLIENT_ID']
+### c.GoogleOAuthenticator.client_secret = os.environ['GOOGLE_CLIENT_SECRET']
+### from oauthenticator import GoogleOAuthenticator
+### class MyGoogleOAuthenticator(GoogleOAuthenticator):
+###     async def authenticate(self, handler, data=None):
+###         user = await super().authenticate(handler, data)
+###         if '@' in user['name']:
+###             user['name'] = user['name'].replace('@', '-at-')
+###         return user
+### 
+### c.JupyterHub.authenticator_class = MyGoogleOAuthenticator
 
-c.GoogleOAuthenticator.oauth_callback_url = "http://db.science.uoit.ca:8000/hub/oauth_callback"
-c.GoogleOAuthenticator.client_id = os.environ['GOOGLE_CLIENT_ID']
-c.GoogleOAuthenticator.client_secret = os.environ['GOOGLE_CLIENT_SECRET']
-from oauthenticator import GoogleOAuthenticator
-class MyGoogleOAuthenticator(GoogleOAuthenticator):
-    async def authenticate(self, handler, data=None):
-        user = await super().authenticate(handler, data)
-        if '@' in user['name']:
-            user['name'] = user['name'].replace('@', '-at-')
-        return user
-c.JupyterHub.authenticator_class = MyGoogleOAuthenticator
+#
+# Authenticate users with my own
+#
+from jupyterhub.auth import Authenticator
+import re
+
+class DebugAuthenticator(Authenticator):
+    async def authenticate(self, handler, data):
+        name = data["username"]
+        password = data["password"]
+
+        if password == "jjj" and re.match(r'^[\w-]+$', name):
+            return dict(name=name)
+        else:
+            return None
+
+c.JupyterHub.authenticator_class = DebugAuthenticator
 
 # Persist hub data on volume mounted inside container
 data_dir = os.environ.get('DATA_VOLUME_CONTAINER', '/data')
@@ -75,3 +93,5 @@ c.JupyterHub.db_url = 'postgresql://postgres:{password}@{host}/{db}'.format(
 #        whitelist.add(name)
 #        if len(parts) > 1 and parts[1] == 'admin':
 #            admin.add(name)
+
+c.JupyterHub.base_url = "/csci/"

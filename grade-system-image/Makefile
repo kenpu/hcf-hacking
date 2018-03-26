@@ -1,7 +1,7 @@
 .PHONY: all run shell
 
-IMAGE = hcf/designer-notebook
-OPT = --rm -it -p 8001:8001
+IMAGE = hcf/grading-system
+OPT = --rm -it 
 
 all:
 	docker build -t $(IMAGE) .
