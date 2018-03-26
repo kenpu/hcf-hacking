@@ -8,3 +8,5 @@ USER jovyan
 COPY ./config/*.py /etc/jupyter/
 RUN jupyter nbextension disable --sys-prefix assignment_list/main --section=tree
 RUN mkdir -p /home/jovyan/work/problemsets
+ADD ./dot-jupyter /home/jovyan/.jupyter
+

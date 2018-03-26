@@ -6,13 +6,14 @@ import subprocess
 import os
 import errno
 import stat
+import notebook.auth
 
 c = get_config()
 c.NotebookApp.ip = '*'
 c.NotebookApp.port = 8001
 c.NotebookApp.open_browser = False
 c.NotebookApp.base_url = "/designer"
-c.NotebookApp.password = 'sha1:36bec6903faf:d9842634466fa3b46f080c07033dfe3ae0c8e79e'
+c.NotebookApp.password = notebook.auth.passwd('cs@uoit')
 
 # Generate a self-signed certificate
 if 'GEN_CERT' in os.environ:
