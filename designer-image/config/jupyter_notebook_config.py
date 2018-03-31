@@ -13,7 +13,7 @@ c.NotebookApp.ip = '*'
 c.NotebookApp.port = 8001
 c.NotebookApp.open_browser = False
 c.NotebookApp.base_url = "/designer"
-c.NotebookApp.password = notebook.auth.passwd('cs@uoit')
+c.NotebookApp.password = notebook.auth.passwd('abc')
 
 # Generate a self-signed certificate
 if 'GEN_CERT' in os.environ:

@@ -50,7 +50,7 @@ check-files: secrets/postgres.env
 build: check-files network volumes
 	docker-compose build
 
-deploy:
+run:
 	docker-compose up
 
 .PHONY: network volumes check-files build deploy

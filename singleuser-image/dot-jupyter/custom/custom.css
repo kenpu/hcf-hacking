@@ -3,14 +3,10 @@
 }
 
 #ipython_notebook {
-    padding: 20px;
-    padding-bottom: 40px;
 }
 #ipython_notebook a:before {
-    display: block;
-    content: "Scientific Data Analysis";
+    content: "CSCI2000U";
     font-family: Helvetica;
-    font-size: 20pt;
     font-weight: bold;
     color: #888;
 }

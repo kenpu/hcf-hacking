@@ -19,10 +19,11 @@ c.DockerSpawner.network_name = network_name
 # Pass the network name as argument to spawned containers
 c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 
-notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan/work'
-c.DockerSpawner.notebook_dir = notebook_dir
+#notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan/work'
+#c.DockerSpawner.notebook_dir = notebook_dir
+c.DockerSpawner.notebook_dir = "/home/jovyan"
 
-c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
+c.DockerSpawner.volumes = { 'problemsets-{username}': "/home/jovyan/problemsets" }
 
 c.DockerSpawner.remove_containers = True
 c.DockerSpawner.debug = True
@@ -94,4 +95,4 @@ c.JupyterHub.db_url = 'postgresql://postgres:{password}@{host}/{db}'.format(
 #        if len(parts) > 1 and parts[1] == 'admin':
 #            admin.add(name)
 
-c.JupyterHub.base_url = "/csci/"
+c.JupyterHub.base_url = "/course/"
