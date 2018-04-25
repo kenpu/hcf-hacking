@@ -8,15 +8,13 @@ all:
 
 run:
 	docker run $(OPT) \
-		-v problemsets:/home/jovyan/problemsets \
-		-v exchange:/home/jovyan/problemsets/exchange \
-		-v source:/home/jovyan/problemsets/source \
+		--name designer \
+		-v $(PROBLEMSETS):/home/jovyan/problemsets \
+		-v $(EXCHANGE):/home/jovyan/exchange \
 		-v $(PWD)/config:/etc/jupyter \
 		-v $(PWD)/dot-jupyter:/home/jovyan/.jupyter \
+		-v $(PWD)/tools:/srv/tools \
 		$(IMAGE)
 
 shell:
-	docker run --name designer $(OPT) $(IMAGE) /bin/bash
-
-debug:
-	docker run $(OPT) -v $(PWD)/config:/etc/jupyter -v $(PWD)/dot-jupyter:/home/jovyan/.jupyter $(IMAGE)
+	docker exec -it designer /bin/bash

@@ -53,4 +53,7 @@ build: check-files network volumes
 run:
 	docker-compose up
 
+down:
+	docker-compose down
+
 .PHONY: network volumes check-files build deploy

@@ -23,7 +23,10 @@ c.DockerSpawner.extra_host_config = { 'network_mode': network_name }
 #c.DockerSpawner.notebook_dir = notebook_dir
 c.DockerSpawner.notebook_dir = "/home/jovyan"
 
-c.DockerSpawner.volumes = { 'problemsets-{username}': "/home/jovyan/problemsets" }
+user_home_prefix = os.environ.get('USER_HOME_PREFIX', '')
+c.DockerSpawner.volumes = { 
+        ('%s-{username}' % user_home_prefix) : "/home/jovyan" 
+        }
 
 c.DockerSpawner.remove_containers = True
 c.DockerSpawner.debug = True
