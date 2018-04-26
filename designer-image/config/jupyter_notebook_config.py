@@ -14,6 +14,8 @@ c.NotebookApp.port = 8001
 c.NotebookApp.open_browser = False
 c.NotebookApp.base_url = "/designer"
 c.NotebookApp.password = notebook.auth.passwd('abc')
+c.NotebookApp.allow_origin = '*'
+c.NotebookApp.mathjax_url = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js'
 
 # Generate a self-signed certificate
 if 'GEN_CERT' in os.environ:

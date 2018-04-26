@@ -51,7 +51,7 @@ services:
       # Postgres db info
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST: hub-db
-      USER_HOME_PREFIX: ${USER_HOME_PREFIX}
+      USER_PROBLEMSETS_PREFIX: ${USER_PROBLEMSETS_PREFIX}
 
     env_file:
       - secrets/postgres.env

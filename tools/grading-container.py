@@ -12,9 +12,9 @@ def get_running_instance(client):
 def get_mount(client):
     vols = client.volumes.list()
     users = []
-    prefix = os.environ.get('USER_HOME_PREFIX')
+    prefix = os.environ.get('USER_PROBLEMSETS_PREFIX')
     if not prefix:
-        raise Exception("USER_HOME_PREFIX is not set")
+        raise Exception("USER_PROBLEMSETS_PREFIX is not set")
     prefix = prefix + "-"
 
     problemsets_volume = os.environ.get('PROBLEMSETS')
@@ -31,7 +31,7 @@ def get_mount(client):
 
     mount = dict((
         prefix + x, 
-        dict(bind="/users/%s" % x, mode='rw')) for x in users)
+        dict(bind="/user-problemsets/%s" % x, mode='rw')) for x in users)
 
     mount[problemsets_volume] = dict(
             bind="/home/jovyan/problemsets",
@@ -61,6 +61,7 @@ def start(client):
     mount = get_mount(client)
 
     client.containers.run("hcf/designer-notebook",
+            command="python /tools/push-problemsets.py",
             name="grading",
             volumes=mount,
             remove=True,
